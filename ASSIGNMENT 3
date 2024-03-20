@@ -1,0 +1,212 @@
+          TCL & DCL COMMANDS
+
+
+A)TCL COMMANDS
+
+1.COMMIT
+
+mysql> SET AUTOCOMMIT=OFF;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>insert into tab values(10,"abcd",25);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>commit;
+
+
+mysql> select * from tab;
++------+------+-----+
+| id   | name | age |
++------+------+-----+
+|   10 | abcd |  25 |
++------+------+-----+
+1 row in set (0.00 sec)
+
+
+2.ROLLBACK
+
+
+mysql> SET AUTOCOMMIT=OFF;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from tab;
++------+------+-----+
+| id   | name | age |
++------+------+-----+
+|   10 | abcd |  25 |
++------+------+-----+
+1 row in set (0.00 sec)
+
+
+mysql> DELETE FROM tab WHERE ID=10;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from tab;
+Empty set (0.00 sec)
+
+mysql> ROLLBACK;
+Query OK, 0 rows affected (0.00 sec)
+
+
+mysql> select * from tab;
++------+------+-----+
+| id   | name | age |
++------+------+-----+
+|   10 | abcd |  25 |
++------+------+-----+
+1 row in set (0.00 sec)
+
+
+
+
+3.SAVEPOINT
+
+
+mysql> SET AUTOCOMMIT=OFF;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into tab values(11,"XYZ",35);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SAVEPOINT S1;
+Query OK, 0 rows affected (0.00 sec)
+
+
+mysql> insert into tab values(12,"GHIJ",45);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SAVEPOINT S2;
+Query OK, 0 rows affected (0.00 sec)
+
+
+mysql> insert into tab values(13,"PQRS",55);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SAVEPOINT S3;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from tab;
++------+------+-----+
+| id   | name | age |
++------+------+-----+
+|   10 | abcd |  25 |
+|   11 | XYZ  |  35 |
+|   12 | GHIJ |  45 |
+|   13 | PQRS |  55 |
++------+------+-----+
+4 rows in set (0.00 sec)
+
+
+
+
+//SAVE TILL S2
+
+
+mysql> ROLLBACK TO S2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from tab;
++------+------+-----+
+| id   | name | age |
++------+------+-----+
+|   10 | abcd |  25 |
+|   11 | XYZ  |  35 |
+|   12 | GHIJ |  45 |
++------+------+-----+
+3 rows in set (0.00 sec)
+
+
+
+
+//SAVE THE ENTERED DATA
+
+mysql> COMMIT;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from tab;
++------+------+-----+
+| id   | name | age |
++------+------+-----+
+|   10 | abcd |  25 |
+|   11 | XYZ  |  35 |
+|   12 | GHIJ |  45 |
++------+------+-----+
+3 rows in set (0.00 sec)
+
+
+B) DCL COMMAND
+
+1.GRANT
+
+mysql> CREATE USER ANUGRAH@'LOCALHOST' IDENTIFIED BY 'PASS1';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CREATE USER ABHI@'LOCALHOST' IDENTIFIED BY 'PASS2';
+Query OK, 0 rows affected (0.01 sec)
+
+
+mysql> GRANT SELECT,INSERT ON INVOICE.CUSTOMER TO ANUGRAH@'LOCALHOST';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SHOW GRANTS FOR ANUGRAH@'LOCALHOST';
++-----------------------------------------------------------------------+
+| Grants for ANUGRAH@localhost                                          |
++-----------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `ANUGRAH`@`localhost`                           |
+| GRANT SELECT, INSERT ON `INVOICE`.`CUSTOMER` TO `ANUGRAH`@`localhost` |
++-----------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+
+
+
+
+mysql> GRANT SELECT,UPDATE ON INVOICE.CUSTOMER TO ABHI@'LOCALHOST';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SHOW GRANTS FOR ABHI@'LOCALHOST';
++--------------------------------------------------------------------+
+| Grants for ABHI@localhost                                          |
++--------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `ABHI`@`localhost`                           |
+| GRANT SELECT, UPDATE ON `INVOICE`.`CUSTOMER` TO `ABHI`@`localhost` |
++--------------------------------------------------------------------+
+2 rows in set (0.01 sec)
+
+
+//DELETE ONE PRIVILAGE
+
+mysql> GRANT UPDATE,DELETE ON INVOICE.CUSTOMER TO ABHI@'LOCALHOST';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SHOW GRANTS FOR ABHI@'LOCALHOST';
++--------------------------------------------------------------------+
+| Grants for ABHI@localhost                                          |
++--------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `ABHI`@`localhost`                           |
+| GRANT UPDATE, DELETE ON `INVOICE`.`CUSTOMER` TO `ABHI`@`localhost` |
++--------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+
+
+2.REVOKE
+
+
+mysql> REVOKE DELETE ON INVOICE.CUSTOMER FROM ABHI@'LOCALHOST';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SHOW GRANTS FOR ABHI@'LOCALHOST';
++------------------------------------------------------------+
+| Grants for ABHI@localhost                                  |
++------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `ABHI`@`localhost`                   |
+| GRANT UPDATE ON `INVOICE`.`CUSTOMER` TO `ABHI`@`localhost` |
++------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+
+
+
+
+
