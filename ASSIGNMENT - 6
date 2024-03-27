@@ -1,0 +1,81 @@
+  OPTIMIZING DATABASE:  (GROUP BY, AGGREGATE FUNCTIONS)
+
+1. LIST PRODUCT NAME, PRICE EXCEPT SOAP ON PRICE ORDER.
+
+mysql> USE INVOICE;
+Database changed
+mysql> SELECT * FROM PRODUCT;
++-----+--------+-------+
+| PID | PNAME  | PRICE |
++-----+--------+-------+
+|   1 | PEN    |    51 |
+|   2 | PENCIL |    61 |
+|   3 | SOAP   |    82 |
+|   4 | SPOON  |   113 |
+|   5 | TORCH  |   153 |
++-----+--------+-------+
+5 rows in set (0.00 sec)
+
+
+mysql> SELECT * FROM PRODUCT WHERE PNAME!='SOAP';
++-----+--------+-------+
+| PID | PNAME  | PRICE |
++-----+--------+-------+
+|   1 | PEN    |    51 |
+|   2 | PENCIL |    61 |
+|   4 | SPOON  |   113 |
+|   5 | TORCH  |   153 |
++-----+--------+-------+
+4 rows in set (0.00 sec)
+
+
+2.FIND MINIMUM, MAXIMUM AND AVERAGE PRICE OF PRODUCTS.
+
+mysql> SELECT MIN(PRICE),MAX(PRICE),AVG(PRICE) FROM PRODUCT;
++------------+------------+------------+
+| MIN(PRICE) | MAX(PRICE) | AVG(PRICE) |
++------------+------------+------------+
+|         51 |        153 |    92.0000 |
++------------+------------+------------+
+1 row in set (0.00 sec)
+
+
+3.FIND NUMBER OF CUSTOMERS IN EACH CITY.
+
+mysql> SELECT * FROM CUSTOMER;
++-------+----------+------------+------------+------------+
+| ID    | NAME     | ADDRESS    | CITY       | PH_NO      |
++-------+----------+------------+------------+------------+
+| 10002 | ABHINAND | PATTAMBI   | PALAKKAD   | 1234567895 |
+| 10003 | AKASH    | PAYYOLI    | KOYILANDY  | 3654987125 |
+| 10004 | SINAN    | KALLAYI    | MALAPPURAM | 4561235876 |
+| 10005 | ANUGRAH  | ULLIYERI   | KOZIKODE   | 2546789542 |
+| 10006 | DAVID    | KADAVU     | KOZIKODE   | 2546789642 |
+| 10007 | DAVOOD   | NADUVANNUR | KOZIKODE   | 2546723642 |
+| 10008 | DAMU     | PC MUKKU   | KOZIKODE   | 2546723417 |
++-------+----------+------------+------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT CITY,COUNT(*) FROM CUSTOMER GROUP BY CITY;
++------------+----------+
+| CITY       | COUNT(*) |
++------------+----------+
+| PALAKKAD   |        1 |
+| KOYILANDY  |        1 |
+| MALAPPURAM |        1 |
+| KOZIKODE   |        4 |
++------------+----------+
+4 rows in set (0.00 sec)
+
+
+4.FIND NUMBER OF CUSTOMERS IN EACH CITY, ONLY INCLUDE CITY WITH MORE THAN 3 CUSTOMERS.
+
+
+mysql> SELECT CITY,COUNT(*) FROM CUSTOMER GROUP BY CITY HAVING COUNT(CITY)>3;
++----------+----------+
+| CITY     | COUNT(*) |
++----------+----------+
+| KOZIKODE |        4 |
++----------+----------+
+1 row in set (0.00 sec)
+

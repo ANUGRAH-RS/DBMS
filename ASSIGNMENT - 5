@@ -1,0 +1,120 @@
+                  ACCESSING DATABASE:(SUBQUERY)
+                  
+                  
+1.LIST THE CUSTOMER NAMES OF INVOICE DATE 15 FEBRUARY 2021.
+
+mysql> SELECT * FROM INVOICE_MASTER;
++--------+---------+------------+
+| INV_ID | CUST_ID | INV_DATE   |
++--------+---------+------------+
+|    102 |   10002 | 2002-02-02 |
+|    103 |   10003 | 2003-03-03 |
+|    104 |   10004 | 2004-04-04 |
+|    105 |   10005 | 2022-01-31 |
+|    106 |   10006 | 2021-01-25 |
+|    107 |   10007 | 2021-02-15 |
++--------+---------+------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMER;
++-------+----------+------------+------------+------------+
+| ID    | NAME     | ADDRESS    | CITY       | PH_NO      |
++-------+----------+------------+------------+------------+
+| 10002 | ABHINAND | PATTAMBI   | PALAKKAD   | 1234567895 |
+| 10003 | AKASH    | PAYYOLI    | KOYILANDY  | 3654987125 |
+| 10004 | SINAN    | KALLAYI    | MALAPPURAM | 4561235876 |
+| 10005 | ANUGRAH  | ULLIYERI   | KOZIKODE   | 2546789542 |
+| 10006 | DAVID    | KADAVU     | KOZIKODE   | 2546789642 |
+| 10007 | DAMU     | NADUVANNUR | KOZIKODE   | 2546723642 |
+| 10008 | GOPALAN  | MUKKAM     | ERNAKULAM  | 2356417852 |
+| 10009 | KANARAN  | OMASSERY   | TVM        | 4566417852 |
++-------+----------+------------+------------+------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT NAME FROM CUSTOMER WHERE ID IN(SELECT CUST_ID FROM INVOICE_MASTER
+WHERE INV_DATE='2021-02-15');
++------+
+| NAME |
++------+
+| DAMU |
++------+
+1 row in set (0.00 sec)
+
+
+
+2.LIST THE PRODUCT NAME AND PRICE OF EACH INVOICE ITEM.
+
+
+mysql> SELECT * FROM PRODUCT;
++-----+--------+-------+
+| PID | PNAME  | PRICE |
++-----+--------+-------+
+|   1 | PEN    |    51 |
+|   2 | PENCIL |    61 |
+|   3 | SOAP   |    82 |
+|   4 | SPOON  |   113 |
+|   5 | TORCH  |   153 |
++-----+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM INVOICE_ITEM;
++--------+------+----------+
+| INV_ID | PID  | QUANTITY |
++--------+------+----------+
+|    103 |    4 |        3 |
+|    104 |    2 |        3 |
+|    105 |    4 |        5 |
+|    106 |    5 |        2 |
++--------+------+----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT PNAME,PRICE FROM PRODUCT WHERE PID IN(SELECT PID FROM INVOICE_ITEM);
++--------+-------+
+| PNAME  | PRICE |
++--------+-------+
+| PENCIL |    61 |
+| SPOON  |   113 |
+| TORCH  |   153 |
++--------+-------+
+3 rows in set (0.00 sec)
+
+
+
+3.LIST THE PRODUCT NAMES, ONLY INCLUDE THEIR PURCHASED QUANTITY MORE THAN 3.
+
+
+mysql> SELECT * FROM PRODUCT;
++-----+--------+-------+
+| PID | PNAME  | PRICE |
++-----+--------+-------+
+|   1 | PEN    |    51 |
+|   2 | PENCIL |    61 |
+|   3 | SOAP   |    82 |
+|   4 | SPOON  |   113 |
+|   5 | TORCH  |   153 |
++-----+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM INVOICE_ITEM;
++--------+------+----------+
+| INV_ID | PID  | QUANTITY |
++--------+------+----------+
+|    103 |    4 |        3 |
+|    104 |    2 |        3 |
+|    105 |    4 |        5 |
+|    106 |    5 |        2 |
++--------+------+----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT PNAME FROM PRODUCT WHERE PID IN(SELECT PID FROM INVOICE_ITEM WHERE QUANTITY>3);
++-------+
+| PNAME |
++-------+
+| SPOON |
++-------+
+1 row in set (0.00 sec)
+
+
+
+
+

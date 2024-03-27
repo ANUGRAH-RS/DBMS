@@ -1,0 +1,49 @@
+                  ACCESSING DATABASES:(VIEWS)
+                  
+
+1.CREATE A VIEW FOR CUSTOMERS WHO HAVE PURCHASED PRODUCTS
+
+
+
+mysql> SELECT * FROM CUSTOMER;
++-------+----------+------------+------------+------------+
+| ID    | NAME     | ADDRESS    | CITY       | PH_NO      |
++-------+----------+------------+------------+------------+
+| 10002 | ABHINAND | PATTAMBI   | PALAKKAD   | 1234567895 |
+| 10003 | AKASH    | PAYYOLI    | KOYILANDY  | 3654987125 |
+| 10004 | SINAN    | KALLAYI    | MALAPPURAM | 4561235876 |
+| 10005 | ANUGRAH  | ULLIYERI   | KOZIKODE   | 2546789542 |
+| 10006 | DAVID    | KADAVU     | KOZIKODE   | 2546789642 |
+| 10007 | DAMU     | NADUVANNUR | KOZIKODE   | 2546723642 |
++-------+----------+------------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM INVOICE_MASTER;
++--------+---------+------------+
+| INV_ID | CUST_ID | INV_DATE   |
++--------+---------+------------+
+|    102 |   10002 | 2002-02-02 |
+|    103 |   10003 | 2003-03-03 |
+|    104 |   10004 | 2004-04-04 |
+|    105 |   10005 | 2022-01-31 |
++--------+---------+------------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE VIEW PURCHASE AS SELECT NAME FROM CUSTOMER WHERE ID IN (SELECT CUST_ID FROM INVOICE_MASTER);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT * FROM PURCHASE;
++----------+
+| NAME     |
++----------+
+| ABHINAND |
+| AKASH    |
+| SINAN    |
+| ANUGRAH  |
++----------+
+4 rows in set (0.00 sec)
+
+
+
+
+
