@@ -563,4 +563,4 @@ Query OK, 5 rows affected (0.01 sec)
 
 mysql> SELECT * FROM STUDENT;
 Empty set (0.00 sec)
-
+//VERIFIED
