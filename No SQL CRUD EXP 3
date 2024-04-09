@@ -1,0 +1,104 @@
+                          No SQL CRUD
+
+
+1.Write a MongoDB query to create an INVOICE database and collections (CUSTOMER, PRODUCT) and its corresponding documents.
+
+
+test> use INVOICE
+switched to db INVOICE
+
+
+
+INVOICE> db.CUSTOMER.insertMany([{id:10002,Name:"Abhinand",Address:"Pattambi",City:"Palakkad",Ph_no:1234567895},{id:10003,Name:"Akash",Address:"Payyoli",City:"Koyilandy",Ph_no:3654987125}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('66138caeabae91585bef634b'),
+    '1': ObjectId('66138caeabae91585bef634c')
+  }
+}
+INVOICE> db.CUSTOMER.insertMany([{id:10004,Name:"Sinan",Address:"Kallayi",City:"Malappuram",Ph_no:1546789546},{id:10005,Name:"Anugrah",Address:"Ulliyeri",City:"Kozhikode",Ph_no:5236417895},{id:10006,Name:"David",Address:"Kadavu",City:"Kozhikode",Ph_no:5874693215}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('66138ed8abae91585bef634d'),
+    '1': ObjectId('66138ed8abae91585bef634e'),
+    '2': ObjectId('66138ed8abae91585bef634f')
+  }
+}
+
+
+
+
+2.Write a MongoDB query to find all documents from the collection CUSTOMER 
+
+
+
+INVOICE> db.CUSTOMER.find().pretty()
+[
+  {
+    _id: ObjectId('66138caeabae91585bef634b'),
+    id: 10002,
+    Name: 'Abhinand',
+    Address: 'Pattambi',
+    City: 'Palakkad',
+    Ph_no: 1234567895
+  },
+  {
+    _id: ObjectId('66138caeabae91585bef634c'),
+    id: 10003,
+    Name: 'Akash',
+    Address: 'Payyoli',
+    City: 'Koyilandy',
+    Ph_no: 3654987125
+  },
+  {
+    _id: ObjectId('66138ed8abae91585bef634d'),
+    id: 10004,
+    Name: 'Sinan',
+    Address: 'Kallayi',
+    City: 'Malappuram',
+    Ph_no: 1546789546
+  },
+  {
+    _id: ObjectId('66138ed8abae91585bef634e'),
+    id: 10005,
+    Name: 'Anugrah',
+    Address: 'Ulliyeri',
+    City: 'Kozhikode',
+    Ph_no: 5236417895
+  },
+  {
+    _id: ObjectId('66138ed8abae91585bef634f'),
+    id: 10006,
+    Name: 'David',
+    Address: 'Kadavu',
+    City: 'Kozhikode',
+    Ph_no: 5874693215
+  }
+]
+
+
+
+
+3.Write a MongoDB query to update the city in the collection CUSTOMER.
+
+
+INVOICE> db.CUSTOMER.updateOne({"City":"Koyilandy"},{$set:{"City":"Kozhikode"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+
+
+4.Write a MongoDB query to delete the first matched document whose city is “Calicut”
+
+
+INVOICE>  db.CUSTOMER.deleteOne({"City":"Kozhikode"})
+{ acknowledged: true, deletedCount: 1 }
+
+
