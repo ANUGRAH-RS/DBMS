@@ -1,0 +1,106 @@
+                 NoSQL – RETRIEVING DATA
+
+
+1.Write a MongoDB query to display the customer documents having city ‘ekm’,’tvm’. 
+
+
+INVOICE> db.CUSTOMER.find({$or:[{"City":"ekm"},{"City":"tvm"}]})
+[
+  {
+    _id: ObjectId('661caa97ac1ef4f5f4ef634b'),
+    id: 10007,
+    Name: 'Amala',
+    Address: 'Mukkam',
+    City: 'ekm',
+    Ph_no: 1546789546,
+    Age: 55
+  },
+  {
+    _id: ObjectId('661caa97ac1ef4f5f4ef634c'),
+    id: 10008,
+    Name: 'Hudhaa',
+    Address: 'Mukkam',
+    City: 'tvm',
+    Ph_no: 1458769325,
+    Age: 56
+  }
+]
+
+
+
+2.Write a MongoDB query to display all customer documents who have age >50.
+
+
+INVOICE> db.CUSTOMER.find({"Age":{$gt:50}}).pretty()
+[
+  {
+    _id: ObjectId('661caa97ac1ef4f5f4ef634b'),
+    id: 10007,
+    Name: 'Amala',
+    Address: 'Mukkam',
+    City: 'ekm',
+    Ph_no: 1546789546,
+    Age: 55
+  },
+  {
+    _id: ObjectId('661caa97ac1ef4f5f4ef634c'),
+    id: 10008,
+    Name: 'Hudhaa',
+    Address: 'Mukkam',
+    City: 'tvm',
+    Ph_no: 1458769325,
+    Age: 56
+  }
+]
+
+
+
+3.Write a MongoDB query to find customer documents who not live in ‘tvm’.
+
+
+INVOICE> db.CUSTOMER.find({"City":{$ne:"tvm"}}).pretty()
+[
+  {
+    _id: ObjectId('66138caeabae91585bef634b'),
+    id: 10002,
+    Name: 'Abhinand',
+    Address: 'Pattambi',
+    City: 'Palakkad',
+    Ph_no: 1234567895
+  },
+  {
+    _id: ObjectId('66138ed8abae91585bef634d'),
+    id: 10004,
+    Name: 'Sinan',
+    Address: 'Kallayi',
+    City: 'Malappuram',
+    Ph_no: 1546789546
+  },
+  {
+    _id: ObjectId('66138ed8abae91585bef634e'),
+    id: 10005,
+    Name: 'Anugrah',
+    Address: 'Ulliyeri',
+    City: 'Kozhikode',
+    Ph_no: 5236417895
+  },
+  {
+    _id: ObjectId('66138ed8abae91585bef634f'),
+    id: 10006,
+    Name: 'David',
+    Address: 'Kadavu',
+    City: 'Kozhikode',
+    Ph_no: 5874693215
+  },
+  {
+    _id: ObjectId('661caa97ac1ef4f5f4ef634b'),
+    id: 10007,
+    Name: 'Amala',
+    Address: 'Mukkam',
+    City: 'ekm',
+    Ph_no: 1546789546,
+    Age: 55
+  }
+]
+
+
