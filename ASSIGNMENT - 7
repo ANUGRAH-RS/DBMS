@@ -1,0 +1,43 @@
+     OPTIMIZING DATABASE: (JOINS)
+
+
+1.LIST THE PRODUCT NAME AND QUANTITY OF INVOICE ITEMS.
+
+mysql> SELECT * FROM INVOICE_ITEM;
++--------+------+----------+
+| INV_ID | PID  | QUANTITY |
++--------+------+----------+
+|    103 |    4 |        3 |
+|    104 |    2 |        3 |
+|    105 |    4 |        5 |
+|    106 |    5 |        2 |
++--------+------+----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM PRODUCT;
++-----+--------+-------+
+| PID | PNAME  | PRICE |
++-----+--------+-------+
+|   1 | PEN    |    51 |
+|   2 | PENCIL |    61 |
+|   3 | SOAP   |    82 |
+|   4 | SPOON  |   113 |
+|   5 | TORCH  |   153 |
++-----+--------+-------+
+5 rows in set (0.00 sec)
+
+
+mysql> SELECT PNAME,QUANTITY FROM PRODUCT INNER JOIN INVOICE_ITEM ON PRODUCT.PID=INVOICE_ITEM.PID;
++--------+----------+
+| PNAME  | QUANTITY |
++--------+----------+
+| PENCIL |        3 |
+| SPOON  |        3 |
+| SPOON  |        5 |
+| TORCH  |        2 |
++--------+----------+
+4 rows in set (0.00 sec)
+
+
+
+
