@@ -101,4 +101,4 @@ INVOICE> db.CUSTOMER.updateOne({"City":"Koyilandy"},{$set:{"City":"Kozhikode"}})
 INVOICE>  db.CUSTOMER.deleteOne({"City":"Kozhikode"})
 { acknowledged: true, deletedCount: 1 }
 
-
+//VERIFIED
