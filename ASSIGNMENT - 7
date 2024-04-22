@@ -38,6 +38,6 @@ mysql> SELECT PNAME,QUANTITY FROM PRODUCT INNER JOIN INVOICE_ITEM ON PRODUCT.PID
 +--------+----------+
 4 rows in set (0.00 sec)
 
-
+//VERIFIED
 
 
